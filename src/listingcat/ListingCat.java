@@ -1,0 +1,958 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package listingcat;
+
+import java.awt.AWTException;
+import java.awt.Color;
+import java.awt.Robot;
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
+import java.awt.event.KeyEvent;
+import java.util.Scanner;
+import javax.swing.JColorChooser;
+import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.ERROR_MESSAGE;
+import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
+
+/**
+ *
+ * @author Milan
+ */
+public class ListingCat extends javax.swing.JFrame {
+
+    static int shortDelay=50;
+    static int mediumDelay=80;
+    static int longDelay=100;
+    static String manualString = "Listing Cat v1.0 - MANUAL\n" +
+"\n" +
+"PURPOSE:\n" +
+"\n" +
+"Listing Cat can be used for creating multiple listings which contain similar or identical information. \n" +
+"Example - creating two or more copies of a single listing, or building an account whose listings all have the same Cancellation Policies, Other Considerations, Check Lists, etc.\n" +
+"\n" +
+"INSTRUCTIONS:\n" +
+"\n" +
+"1. Fill out the necessary information in program's interface. You may leave any field blank. The interface covers most of the fields\n" +
+"from the description page, however, pricing, add-ons, photos and other tabs will need to be filled out manually.\n" +
+"Additionally, Tour Category will also need to be selected manually, as well as schedules, \"Address Lookup\" - under Activity Location\n" +
+"and \"Locate on map\" - under Meeting Location - though, the program can enter the actual address line into the field for you.\n" +
+"\n" +
+"2. When filling out \"What's Included\" and \"What to Bring\" lists, you may choose between two parsing methods: \"(by line)\" or \"(by delimiter)\".\n" +
+"Selecting \"(by line)\" causes the program to split the items by new lines (ENTERS), whereas selecting \"(by delimiter)\"\n" +
+"allows you to define your own delimiter, which can be a character or a set of characters, at which the program will separate entries.\n" +
+"For example, entering\n" +
+"\"towel\n" +
+"swim-suit for the beach\n" +
+"sunblock (if you need it)\"\n" +
+"and selecting \"(by line)\" will treat each line as a separate item.\n" +
+"On the other hand, entering the following format: \"towel, swim-suit for the beach, sunblock (if you need it)\", \n" +
+"selecting \"(by delimiter)\" and entering a comma into the delimiter field, will break tokens after each comma, providing the same result as above.\n" +
+"\n" +
+"3. Finally, click on the \"Run\" button and immediately click into the Title field in Xola.\n" +
+"The program will run after a brief delay defined under \"Run delay\". This delay may be customized.\n" +
+"You may also customize the overall performance speed of the program.\n" +
+"\n" +
+"4. Allow the program some time to finish - usually 1-3 seconds.\n" +
+"\n" +
+"***WARNING***\n" +
+"The following points are of immense importance to understand:\n" +
+"- You absolutely HAVE to click into the Title field in Xola after hitting the Run button. \n" +
+"Otherwise, the program will send the keystrokes who knows where. Bear in mind that this is not some kind of sophisticated software, \n" +
+"but a simple bot, which relies solely on parsing information and\n" +
+"sending keystrokes.\n" +
+"\n" +
+"- Once the program has started running, DO NOT INTERACT WITH YOUR COMPUTER IN ANY WAY.\n" +
+"- The program was designed to work with THE DEFAULT LISTING TEMPLATE. This means that if any information is manually\n" +
+"entered into Xola after clicking \"Create a Listing\" (i.e. Added a schedule, checked some of the boxes, etc.) and before running the program,\n" +
+"it will de-sync the algorithm and the keystrokes will likely be misplaced.\n" +
+"- If the devs change the layout of the Description tab in Xola, this tool will become deprecated and will need to be updated.\n" +
+"- The algorithm of the program can also be de-synced by latency caused either by Xola, or by your computer. In cases like this, you may change the\n" +
+"\"Overall program speed\" in the lower-right corner of the window. \n" +
+"The default speed should work fine in 99% cases, though, if Xola (or your machine) is experiencing latency, you may change it to \"Slow\". \n" +
+"Finally, you may set the program to \"Fast\" if you are feeling like a daredevil.";
+    
+    
+    
+    public ListingCat() {
+        initComponents();
+        minimumDeadlineDropDown.setSelectedItem("hour(s)");
+        programSpeed.setSelectedItem("Normal");
+        
+
+        
+        
+ 
+     
+    }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        title = new javax.swing.JTextField();
+        price = new javax.swing.JTextField();
+        perBookingMinimum = new javax.swing.JTextField();
+        perBookingOutingMaximum = new javax.swing.JTextField();
+        perOutingMinimum = new javax.swing.JTextField();
+        duration = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        excerpt = new javax.swing.JTextArea();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        description = new javax.swing.JTextArea();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        cancellationPolicy = new javax.swing.JTextArea();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        otherConsiderations = new javax.swing.JTextArea();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        whatsIncluded = new javax.swing.JTextArea();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        whatToBring = new javax.swing.JTextArea();
+        address = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        run = new javax.swing.JButton();
+        runDelayLabel = new javax.swing.JLabel();
+        runDelay = new javax.swing.JTextField();
+        notifications = new javax.swing.JLabel();
+        seconds = new javax.swing.JLabel();
+        earlyCutoff = new javax.swing.JCheckBox();
+        futureCutoff = new javax.swing.JCheckBox();
+        privateGroups = new javax.swing.JCheckBox();
+        earlyCutoffDropDown = new javax.swing.JComboBox();
+        durationDropDown = new javax.swing.JComboBox();
+        earlyCutoffValue = new javax.swing.JTextField();
+        futureCutoffValue = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        priceDropDown = new javax.swing.JComboBox();
+        jLabel4 = new javax.swing.JLabel();
+        minimumDeadlineBox = new javax.swing.JTextField();
+        minimumDeadlineDropDown = new javax.swing.JComboBox();
+        enableMap = new javax.swing.JCheckBox();
+        whatsIncludedDropDown = new javax.swing.JComboBox();
+        whatToBringDropDown = new javax.swing.JComboBox();
+        whatsIncludedDelimiter = new javax.swing.JTextField();
+        whatToBringDelimiter = new javax.swing.JTextField();
+        programSpeed = new javax.swing.JComboBox();
+        jLabel5 = new javax.swing.JLabel();
+        manual = new javax.swing.JButton();
+        backgroundColor = new javax.swing.JButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Listing Cat v1.01");
+
+        title.setText("Listing Title");
+
+        price.setText("Price");
+
+        perBookingMinimum.setText("per booking min.");
+
+        perBookingOutingMaximum.setText("per booking max.");
+
+        perOutingMinimum.setText("per outing min.");
+
+        duration.setText("duration");
+
+        excerpt.setColumns(20);
+        excerpt.setRows(5);
+        excerpt.setText("Excerpt");
+        jScrollPane1.setViewportView(excerpt);
+
+        description.setColumns(20);
+        description.setRows(5);
+        description.setText("description");
+        jScrollPane2.setViewportView(description);
+
+        cancellationPolicy.setColumns(20);
+        cancellationPolicy.setRows(5);
+        cancellationPolicy.setText("Cancellation Policy");
+        jScrollPane3.setViewportView(cancellationPolicy);
+
+        otherConsiderations.setColumns(20);
+        otherConsiderations.setRows(5);
+        otherConsiderations.setText("Other Considerations");
+        jScrollPane4.setViewportView(otherConsiderations);
+
+        whatsIncluded.setColumns(20);
+        whatsIncluded.setRows(5);
+        jScrollPane5.setViewportView(whatsIncluded);
+
+        whatToBring.setColumns(20);
+        whatToBring.setRows(5);
+        jScrollPane6.setViewportView(whatToBring);
+
+        address.setText("Location/Address");
+
+        jLabel1.setText("What's Included:");
+
+        jLabel2.setText("What to Bring:");
+
+        run.setText("Run");
+        run.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                runActionPerformed(evt);
+            }
+        });
+
+        runDelayLabel.setText("Run delay:");
+
+        runDelay.setText("2");
+
+        seconds.setText("sec.");
+
+        earlyCutoff.setText("Early Cutoff");
+        earlyCutoff.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                earlyCutoffActionPerformed(evt);
+            }
+        });
+
+        futureCutoff.setText("Future Cutoff");
+        futureCutoff.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                futureCutoffActionPerformed(evt);
+            }
+        });
+
+        privateGroups.setText("Private Groups");
+
+        earlyCutoffDropDown.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "minute(s)", "hour(s)", "day(s)" }));
+        earlyCutoffDropDown.setEnabled(false);
+        earlyCutoffDropDown.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                earlyCutoffDropDownActionPerformed(evt);
+            }
+        });
+
+        durationDropDown.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "minute(s)", "hour(s)", "day(s)" }));
+        durationDropDown.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                durationDropDownActionPerformed(evt);
+            }
+        });
+
+        earlyCutoffValue.setEnabled(false);
+
+        futureCutoffValue.setEnabled(false);
+
+        jLabel3.setText("days");
+        jLabel3.setEnabled(false);
+
+        priceDropDown.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "per person", "per outing" }));
+        priceDropDown.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                priceDropDownActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("Deadline for reaching the minimum:");
+
+        minimumDeadlineBox.setText("1");
+
+        minimumDeadlineDropDown.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "minute(s)", "hour(s)", "day(s)" }));
+
+        enableMap.setSelected(true);
+        enableMap.setText("Enable Map");
+        enableMap.setToolTipText("");
+
+        whatsIncludedDropDown.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "(by line)", "(by delimiter)" }));
+        whatsIncludedDropDown.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                whatsIncludedDropDownActionPerformed(evt);
+            }
+        });
+
+        whatToBringDropDown.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "(by line)", "(by delimiter)" }));
+        whatToBringDropDown.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                whatToBringDropDownActionPerformed(evt);
+            }
+        });
+
+        whatsIncludedDelimiter.setEnabled(false);
+
+        whatToBringDelimiter.setEnabled(false);
+
+        programSpeed.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Fast", "Normal", "Slow" }));
+        programSpeed.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                programSpeedActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setText("Overall program speed");
+
+        manual.setText("Manual");
+        manual.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                manualActionPerformed(evt);
+            }
+        });
+
+        backgroundColor.setText("Change Background Color");
+        backgroundColor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backgroundColorActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(168, 168, 168)
+                        .addComponent(notifications, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(privateGroups)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(futureCutoff)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(futureCutoffValue))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(earlyCutoff)
+                                        .addGap(26, 26, 26)
+                                        .addComponent(earlyCutoffValue, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(earlyCutoffDropDown, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel3)))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(title, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(price, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(duration, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(layout.createSequentialGroup()
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                    .addComponent(priceDropDown, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addGroup(layout.createSequentialGroup()
+                                                    .addGap(12, 12, 12)
+                                                    .addComponent(durationDropDown, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addGap(88, 88, 88))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(82, 82, 82)))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(perBookingMinimum)
+                                                .addComponent(perOutingMinimum)
+                                                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                            .addGap(18, 18, 18)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(perBookingOutingMaximum, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGroup(layout.createSequentialGroup()
+                                                    .addComponent(minimumDeadlineBox, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                    .addComponent(minimumDeadlineDropDown, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(enableMap)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(run, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(runDelayLabel)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(runDelay, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(seconds)
+                                            .addGap(43, 43, 43)
+                                            .addComponent(jLabel5)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(programSpeed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(jLabel1))
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jLabel2)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                                        .addComponent(whatToBringDropDown, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                        .addComponent(whatToBringDelimiter, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(address, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(manual, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(whatsIncludedDropDown, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(whatsIncludedDelimiter, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(backgroundColor)
+                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(backgroundColor)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(notifications, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(perBookingMinimum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(perBookingOutingMaximum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(price, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(priceDropDown, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(perOutingMinimum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(duration, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(durationDropDown, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(minimumDeadlineBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(minimumDeadlineDropDown, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(earlyCutoff)
+                    .addComponent(earlyCutoffDropDown, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(earlyCutoffValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(futureCutoff)
+                    .addComponent(futureCutoffValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(privateGroups)
+                .addGap(4, 4, 4)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(address, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(enableMap)))
+                .addGap(4, 4, 4)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(whatsIncludedDropDown, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(whatsIncludedDelimiter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(whatToBringDropDown, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(whatToBringDelimiter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(46, 46, 46)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(runDelay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(runDelayLabel))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(seconds)
+                        .addComponent(jLabel5)
+                        .addComponent(programSpeed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(run, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(manual, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void earlyCutoffDropDownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_earlyCutoffDropDownActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_earlyCutoffDropDownActionPerformed
+
+    
+    
+    
+    public static void paste(String s) throws AWTException, InterruptedException{
+        Robot bot = new Robot();
+            
+        Clipboard clpbrd = Toolkit.getDefaultToolkit().getSystemClipboard();
+        
+        StringSelection ss = new StringSelection(s);
+        clpbrd.setContents(ss, null);
+        
+        bot.keyPress(KeyEvent.VK_CONTROL);
+        bot.keyPress(KeyEvent.VK_V);
+        Thread.sleep(shortDelay);
+        bot.keyRelease(KeyEvent.VK_V);
+        bot.keyRelease(KeyEvent.VK_CONTROL);
+        
+        Thread.sleep(shortDelay);
+    }
+    
+    public static void tab(int times) throws AWTException, InterruptedException{
+        Robot bot = new Robot();
+        
+        for(int i=0; i<times; i++){
+            bot.keyPress(KeyEvent.VK_TAB);
+            bot.keyRelease(KeyEvent.VK_TAB);
+            Thread.sleep(mediumDelay);
+        }
+    }
+    
+    public static void down(int times) throws AWTException, InterruptedException{
+        Robot bot = new Robot();
+        
+        for(int i=0; i<times; i++){
+            bot.keyPress(KeyEvent.VK_DOWN);
+            bot.keyRelease(KeyEvent.VK_DOWN);
+            Thread.sleep(mediumDelay);
+        }
+    }
+    
+    public static void up(int times) throws AWTException, InterruptedException{
+        Robot bot = new Robot();
+        
+        for(int i=0; i<times; i++){
+            bot.keyPress(KeyEvent.VK_UP);
+            bot.keyRelease(KeyEvent.VK_UP);
+            Thread.sleep(mediumDelay);
+        }
+    }
+    
+    
+    
+    public static void space(int times) throws AWTException, InterruptedException{
+        Robot bot = new Robot();
+        
+        for(int i=0; i<times; i++){
+            bot.keyPress(KeyEvent.VK_SPACE);
+            bot.keyRelease(KeyEvent.VK_SPACE);
+            Thread.sleep(mediumDelay);
+        }
+    }
+    
+    public static void enter(int times) throws InterruptedException, AWTException{
+        Robot bot = new Robot();
+        
+        for(int i=0; i<times; i++){
+            bot.keyPress(KeyEvent.VK_ENTER);
+            bot.keyRelease(KeyEvent.VK_ENTER);
+            Thread.sleep(mediumDelay);
+        }
+
+    }
+    
+    public static boolean hasSelected(JComboBox jcb, String s){
+        
+        if(jcb.getSelectedItem().equals(s)){
+            return true;
+        }
+        return false;
+    }
+    
+    public static void setDropDown(int selection) throws AWTException, InterruptedException{
+        if(selection==2){
+            space(1);
+            Thread.sleep(shortDelay);
+            down(1);
+            Thread.sleep(shortDelay);
+            
+        }
+        if(selection==3){
+            space(1);
+            Thread.sleep(shortDelay);
+            down(2);
+            Thread.sleep(mediumDelay);
+        }
+        enter(1);
+        Thread.sleep(mediumDelay);
+    }
+    
+    public static void setDeadlineDropDown(int selection) throws AWTException, InterruptedException{
+        if(selection==1){
+            space(1);
+            Thread.sleep(shortDelay);
+            up(1);
+            Thread.sleep(shortDelay);
+            
+            
+        }
+        if(selection==3){
+            space(1);
+            Thread.sleep(shortDelay);
+            down(1);
+            Thread.sleep(shortDelay);
+            
+        }
+        enter(1);
+        Thread.sleep(mediumDelay);
+    }
+    
+    
+    
+    private void runActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runActionPerformed
+        
+        try {
+            Thread.sleep(Long.parseLong(runDelay.getText())*1000);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(getContentPane(), "ERROR: Run delay must be a number.",
+                    "ERROR", ERROR_MESSAGE);
+            runDelay.setText("2");
+            return;
+        }
+        
+       
+        try {
+            paste(title.getText());
+            tab(1);
+            paste(price.getText());
+            tab(1);
+            
+            if(hasSelected(priceDropDown, "per person")){
+                tab(1);
+                paste(perBookingMinimum.getText());
+                tab(1);
+                paste(perBookingOutingMaximum.getText());
+                tab(1);
+                paste(perOutingMinimum.getText());
+                tab(1);
+                paste(minimumDeadlineBox.getText());
+                tab(1);
+                if(hasSelected(minimumDeadlineDropDown, "minute(s)")){
+                    setDeadlineDropDown(1);
+                }
+                
+                if(hasSelected(minimumDeadlineDropDown, "day(s)")){
+                    setDeadlineDropDown(3);
+                }
+                
+
+            }else if(hasSelected(priceDropDown, "per outing")){
+                setDropDown(2);
+                tab(1);
+                paste(perBookingOutingMaximum.getText());
+            }
+
+            tab(1); //moving onto duration
+            paste(duration.getText());
+            tab(1);
+            if(hasSelected(durationDropDown, "hour(s)")){
+              setDropDown(2);  
+            }
+            if(hasSelected(durationDropDown, "day(s)")){
+              setDropDown(3);   
+            }
+
+            tab(2);
+            if(earlyCutoff.isSelected()){
+                    space(1);
+                    paste(earlyCutoffValue.getText());
+
+
+                tab(1);
+                //moving onto early cutoff minutes/hours/days
+                if(hasSelected(earlyCutoffDropDown, "hour(s)")){
+                    setDropDown(2);
+
+                }
+                if(hasSelected(earlyCutoffDropDown, "day(s)")){
+                    setDropDown(3);
+
+                }
+            }
+            tab(1);
+            if(futureCutoff.isSelected()){
+                space(1);
+                paste(futureCutoffValue.getText());
+            }
+            
+            
+            
+            if(hasSelected(priceDropDown, "per person")){
+                tab(1);
+                if(privateGroups.isSelected()){
+                    space(1);
+
+                }
+            }
+            //moving onto excerpt
+            tab(1);
+            paste(excerpt.getText());
+            tab(1);
+            paste(description.getText());
+            tab(1);
+            //moving onto what's included
+            Scanner sc1 = new Scanner(whatsIncluded.getText());
+            if(hasSelected(whatsIncludedDropDown, "(by line)")){
+                while(sc1.hasNextLine()){
+                    paste(sc1.nextLine());
+                    enter(1);
+                    Thread.sleep(mediumDelay);
+                }
+            }
+            if(hasSelected(whatsIncludedDropDown, "(by delimiter)")){
+                sc1.useDelimiter(whatsIncludedDelimiter.getText());
+                while(sc1.hasNext()){
+                    paste(sc1.next());
+                    enter(1);
+                    Thread.sleep(mediumDelay);
+                }
+            }
+            sc1.close();
+            //moving onto what to bring
+            tab(1);
+            Scanner sc2 = new Scanner(whatToBring.getText());
+            if(hasSelected(whatToBringDropDown,"(by line)")){
+                while(sc2.hasNextLine()){
+                    paste(sc2.nextLine());
+                    enter(1);
+                    Thread.sleep(mediumDelay);
+                }
+            }
+            if(hasSelected(whatToBringDropDown,"(by delimiter)")){
+                sc2.useDelimiter(whatToBringDelimiter.getText());
+                while(sc2.hasNext()){
+                    paste(sc2.next());
+                    enter(1);
+                    Thread.sleep(mediumDelay);
+                }
+            }
+            sc2.close();
+            
+            tab(1);
+            
+            paste(cancellationPolicy.getText());
+            tab(1);
+            paste(otherConsiderations.getText());
+            tab(3);
+            paste(address.getText());
+            
+            if(!enableMap.isSelected()){
+                tab(1);
+                space(1);
+            }
+            
+ 
+            
+        } catch (AWTException ex) {} catch (InterruptedException ex) {}
+
+    }//GEN-LAST:event_runActionPerformed
+
+    private void priceDropDownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_priceDropDownActionPerformed
+        if(hasSelected(priceDropDown, "per person")){
+            perBookingMinimum.setVisible(true);
+            perBookingMinimum.setEnabled(true);
+            perOutingMinimum.setVisible(true);
+            perOutingMinimum.setEnabled(true);
+            perBookingOutingMaximum.setText("per booking max.");
+            jLabel4.setEnabled(true);
+            minimumDeadlineBox.setEnabled(true);
+            minimumDeadlineBox.setVisible(true);
+            minimumDeadlineDropDown.setEnabled(true);
+        }
+        if(hasSelected(priceDropDown, "per outing")){
+            perBookingMinimum.setVisible(false);
+            perBookingMinimum.setEnabled(false);
+            perOutingMinimum.setVisible(false);
+            perOutingMinimum.setEnabled(false);
+            jLabel4.setEnabled(false);
+            minimumDeadlineBox.setEnabled(false);
+            minimumDeadlineBox.setVisible(false);
+            minimumDeadlineDropDown.setEnabled(false);
+            //minimumDeadlineDropDown.setVisible(false);
+            perBookingOutingMaximum.setText("per outing max.");
+        }
+    }//GEN-LAST:event_priceDropDownActionPerformed
+
+    private void durationDropDownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_durationDropDownActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_durationDropDownActionPerformed
+
+    private void whatsIncludedDropDownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_whatsIncludedDropDownActionPerformed
+        
+        if(hasSelected(whatsIncludedDropDown, "(by line)")){
+            whatsIncludedDelimiter.setEnabled(false);
+            whatsIncludedDelimiter.setVisible(false);
+        }
+        if(hasSelected(whatsIncludedDropDown, "(by delimiter)")){
+            whatsIncludedDelimiter.setEnabled(true);
+            whatsIncludedDelimiter.setVisible(true);
+        }
+    }//GEN-LAST:event_whatsIncludedDropDownActionPerformed
+
+    private void whatToBringDropDownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_whatToBringDropDownActionPerformed
+        
+        if(hasSelected(whatToBringDropDown, "(by line)")){
+            whatToBringDelimiter.setEnabled(false);
+            whatToBringDelimiter.setVisible(false);
+        }
+        if(hasSelected(whatToBringDropDown, "(by delimiter)")){
+            whatToBringDelimiter.setEnabled(true);
+            whatToBringDelimiter.setVisible(true);
+        }
+    }//GEN-LAST:event_whatToBringDropDownActionPerformed
+
+    private void earlyCutoffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_earlyCutoffActionPerformed
+        if(earlyCutoff.isSelected()){
+            earlyCutoffValue.setEnabled(true);
+            earlyCutoffValue.setVisible(true);
+            earlyCutoffDropDown.setEnabled(true);
+            
+        }else{
+            earlyCutoffValue.setEnabled(false);
+            earlyCutoffValue.setVisible(false);
+            earlyCutoffDropDown.setEnabled(false);
+            
+        }
+    }//GEN-LAST:event_earlyCutoffActionPerformed
+
+    private void futureCutoffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_futureCutoffActionPerformed
+        if(futureCutoff.isSelected()){
+            futureCutoffValue.setEnabled(true);
+            futureCutoffValue.setVisible(true);
+            jLabel3.setEnabled(true);
+            //jLabel3.setVisible(true);
+        }else{
+            futureCutoffValue.setEnabled(false);
+            futureCutoffValue.setVisible(false);
+            jLabel3.setEnabled(false);
+            //jLabel3.setVisible(false);
+        }
+    }//GEN-LAST:event_futureCutoffActionPerformed
+
+    private void programSpeedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_programSpeedActionPerformed
+        if(hasSelected(programSpeed, "Fast")){
+                 shortDelay=30;
+                 mediumDelay=50;
+                 longDelay=80;
+        }
+        if(hasSelected(programSpeed, "Normal")){
+                 shortDelay=50;
+                 mediumDelay=80;
+                 longDelay=100;
+        }
+        if(hasSelected(programSpeed, "Slow")){
+                 shortDelay=160;
+                 mediumDelay=320;
+                 longDelay=560;
+        }
+    }//GEN-LAST:event_programSpeedActionPerformed
+
+    private void manualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manualActionPerformed
+        JOptionPane.showMessageDialog(null, manualString, "Manual", INFORMATION_MESSAGE);
+    }//GEN-LAST:event_manualActionPerformed
+
+    private void backgroundColorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backgroundColorActionPerformed
+        JColorChooser jcc = new JColorChooser();
+        Color chosenColor = jcc.showDialog(getContentPane(), "Color Selection", null);
+        getContentPane().setBackground(chosenColor);
+    }//GEN-LAST:event_backgroundColorActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(ListingCat.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(ListingCat.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(ListingCat.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(ListingCat.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new ListingCat().setVisible(true);
+            }
+        });
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField address;
+    private javax.swing.JButton backgroundColor;
+    private javax.swing.JTextArea cancellationPolicy;
+    private javax.swing.JTextArea description;
+    private javax.swing.JTextField duration;
+    private javax.swing.JComboBox durationDropDown;
+    private javax.swing.JCheckBox earlyCutoff;
+    private javax.swing.JComboBox earlyCutoffDropDown;
+    private javax.swing.JTextField earlyCutoffValue;
+    private javax.swing.JCheckBox enableMap;
+    private javax.swing.JTextArea excerpt;
+    private javax.swing.JCheckBox futureCutoff;
+    private javax.swing.JTextField futureCutoffValue;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JButton manual;
+    private javax.swing.JTextField minimumDeadlineBox;
+    private javax.swing.JComboBox minimumDeadlineDropDown;
+    private javax.swing.JLabel notifications;
+    private javax.swing.JTextArea otherConsiderations;
+    private javax.swing.JTextField perBookingMinimum;
+    private javax.swing.JTextField perBookingOutingMaximum;
+    private javax.swing.JTextField perOutingMinimum;
+    private javax.swing.JTextField price;
+    private javax.swing.JComboBox priceDropDown;
+    private javax.swing.JCheckBox privateGroups;
+    private javax.swing.JComboBox programSpeed;
+    private javax.swing.JButton run;
+    private javax.swing.JTextField runDelay;
+    private javax.swing.JLabel runDelayLabel;
+    private javax.swing.JLabel seconds;
+    private javax.swing.JTextField title;
+    private javax.swing.JTextArea whatToBring;
+    private javax.swing.JTextField whatToBringDelimiter;
+    private javax.swing.JComboBox whatToBringDropDown;
+    private javax.swing.JTextArea whatsIncluded;
+    private javax.swing.JTextField whatsIncludedDelimiter;
+    private javax.swing.JComboBox whatsIncludedDropDown;
+    // End of variables declaration//GEN-END:variables
+}
